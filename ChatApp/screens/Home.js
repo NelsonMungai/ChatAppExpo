@@ -41,7 +41,13 @@ const Home = ({ navigation }) => {
         key={(user) => user.userUID}
         renderItem={({ item }) => (
           <ListItem
-            onPress={() => navigation.navigate("Chat")}
+            onPress={() =>
+              navigation.navigate("Chat", {
+                uid: item.userUID,
+                name: item.username,
+                avatar: item.avatarURL,
+              })
+            }
             title={item.username}
             subtitle={item.email}
             image={item.avatarURL}

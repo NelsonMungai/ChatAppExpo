@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import tw from "twrnc";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
@@ -18,7 +18,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{
+          options={() => ({
             headerBackVisible: false,
             title: "Active users ",
             headerTitleAlign: "center",
@@ -26,12 +26,33 @@ export default function App() {
               fontSize: 20,
               fontWeight: "900",
             },
-          }}
+          })}
         />
         <Stack.Screen
           name="Chat"
           component={Chat}
-          options={{ headerBackVisible: false }}
+          options={({ route }) => ({
+            headerBackVisible: true,
+            headerLeft: () => (
+              <Image
+                source={route.params?.avatar}
+                style={{
+                  width: 40,
+                  height: 40,
+                  padding: 10,
+                  borderRadius: 50,
+                  borderWidth: 1,
+                  borderColor: "black",
+                  marginRight: 5,
+                }}
+              />
+            ),
+            title: route.params?.name,
+            headerTitleStyle: {
+              fontWeight: "bold",
+              headerTitleAlign: "center",
+            },
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
